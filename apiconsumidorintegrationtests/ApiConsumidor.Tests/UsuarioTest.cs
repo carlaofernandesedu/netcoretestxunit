@@ -16,13 +16,15 @@ namespace ApiConsumidor.Tests
         {
             //ARRANGE
              ClienteHttp
-                 .ConfigurarInicialCabecalhos();
+                 .RedefinirCabecalhos();
             
             var headers = new Dictionary<string,string>()
             {
                 {HttpRequestHeader.ContentType.ToString(),"application/x-www-form-urlencoded"}
             };
-            var body = "username=userapi%40teste.com&password=123456&grant_type=password";
+            var encondingUsuarioHtml = parametros.Usuario.Replace("@","%40");
+            //var body = "username=userapi%40teste.com&password=123456&grant_type=password";
+            var body = String.Concat("username=",encondingUsuarioHtml,"&password=",parametros.Senha,"&grant_type=password");
 
             //ACT
             var resposta = base.Act("http://servicos.procon.sp.gov.br/api/seguranca/token",HttpMethod.Get,headers,body);
