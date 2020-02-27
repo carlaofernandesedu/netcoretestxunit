@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Collections.Generic;
 using System.Text;
+using Newtonsoft.Json;
 
 namespace ApiConsumidor.Tests
 {
@@ -30,20 +31,20 @@ namespace ApiConsumidor.Tests
             return this;
         }
 
-       public RespostaServico Enviar(string url, HttpMethod verboHttp, Dictionary<string,string> headers = null, string body = "")
+       public RespostaServico<string> Enviar(string url, HttpMethod verboHttp, Dictionary<string,string> headers = null, string body = "")
        {
            var response = EnviarRequestHttp(url,verboHttp,headers,body);
-           return new RespostaServico {CodigoRetorno = (int) response.StatusCode};
+           return new RespostaServico<string> {CodigoRetorno = (int) response.StatusCode};
        }
 
-       public RespostaServico ObterTokenAutenticacao(string url, HttpMethod verboHttp, Dictionary<string,string> headers = null, string body = "")
+       public RespostaServico<Autenticacao> ObterTokenAutenticacao(string url, HttpMethod verboHttp, Dictionary<string,string> headers = null, string body = "")
        {
             var response = EnviarRequestHttp(url,verboHttp,headers,body);
-            var respostaServico = new RespostaServico();
+            var respostaServico = new RespostaServico<Autenticacao>();
             respostaServico.CodigoRetorno = (int) response.StatusCode;
-            if (response != null && response.Headers != null && response.Headers.Contains("Token") && response.Headers.GetValues("Token") != null)
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
-                respostaServico.Resultado = ((string[])(response.Headers.GetValues("Token")))[0];
+                respostaServico.Resultado = JsonConvert.DeserializeObject<Autenticacao>(response.Content.ReadAsStringAsync().Result);
             }
             return respostaServico;
        }
@@ -67,10 +68,10 @@ namespace ApiConsumidor.Tests
        }
 
     }
-    public class RespostaServico
+    public class RespostaServico<T>
     {
-        public int CodigoRetorno;
-        public string Resultado;
+        public int CodigoRetorno {get;set;}
+        public T Resultado {get;set;}
 
     }
 }

@@ -10,6 +10,14 @@ namespace ApiConsumidor.Tests
            public string Usuario{get;set;}
            public string Senha{get;set;}
         }
+    
+    public class Autenticacao
+    {
+        public string access_token{get;set;}
+        public string token_type{get;set;}
+
+        public string IdUsuarioInternet{get;set;}
+    }
 
     public static class UsuarioTestDados 
     {
@@ -18,8 +26,8 @@ namespace ApiConsumidor.Tests
         public static IEnumerable<object[]> FabricarCredenciaisCorretas =>
         new List<object[]>
         {
-            new object[] {"cenario 001",200, new Login(){ Usuario="userapi@teste.com", Senha="123456"}},
-            new object[] {"cenario 002",200, new Login(){ Usuario="userapi@teste.com", Senha="123456"}}
+            new object[] {"cenario 001",200, new Login(){ Usuario="userapi@teste.com", Senha="123456"}}
+            //new object[] {"cenario 002",200, new Login(){ Usuario="userapi@teste.com", Senha="123456"}}
         };
 
     }
