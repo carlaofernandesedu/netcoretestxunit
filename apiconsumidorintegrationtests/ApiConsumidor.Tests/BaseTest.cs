@@ -5,7 +5,7 @@ using System.Net;
 
 namespace ApiConsumidor.Tests
 {
-    public class BaseTest
+    public class BaseTest : IDisposable
     {
         #region "propriedades"
         protected readonly string ServiceBaseUrl;
@@ -44,5 +44,9 @@ namespace ApiConsumidor.Tests
 
         }
 
+        public void Dispose()
+        {
+           ClienteHttp.Dispose();
+        }
     }
 }

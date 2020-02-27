@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 namespace ApiConsumidor.Tests
 {
     
-    public class ComunicacaoServidorHelper
+    public class ComunicacaoServidorHelper : IDisposable
     {
         private HttpClient Cliente;
 
@@ -67,6 +67,11 @@ namespace ApiConsumidor.Tests
            return this.Cliente.SendAsync(request).Result;        
        }
 
+        public void Dispose()
+        {
+           if (Cliente!=null) 
+              Cliente.Dispose();
+        }
     }
     public class RespostaServico<T>
     {

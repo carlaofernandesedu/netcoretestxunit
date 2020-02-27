@@ -30,5 +30,16 @@ namespace ApiConsumidor.Tests
             //new object[] {"cenario 002",200, new Login(){ Usuario="userapi@teste.com", Senha="123456"}}
         };
 
+        public static IEnumerable<object[]> FabricarUsuarioQuePossuiConsumidor() =>
+        new List<object[]>
+        {
+            new object[] {"cenario 011",200, 231272}
+        };
+
+        public static IEnumerable<object[]> FabricarUsuarioQuePossuiFichas() =>
+        new List<object[]>
+        {
+            new object[] {"cenario 021",200, 231272}
+        };
     }
 }
