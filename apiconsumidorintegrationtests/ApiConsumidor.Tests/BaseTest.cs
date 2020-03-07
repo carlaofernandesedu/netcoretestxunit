@@ -17,7 +17,7 @@ namespace ApiConsumidor.Tests
         {
             ServiceBaseUrl = "https://servicos.procon.sp.gov.br";
             usuarioAutenticacao = "userapi%40teste.com";
-            senhaAutenticacao = "123456";
+            senhaAutenticacao = "xxxxx";
             ClienteHttp = ComunicacaoServidorHelper.CriarCliente(ServiceBaseUrl);
         }
 
